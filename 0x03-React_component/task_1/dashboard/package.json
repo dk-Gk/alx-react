@@ -24,6 +24,7 @@
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "image-webpack-loader": "^8.1.0",
@@ -36,13 +37,13 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"
   },
-    "jest": {
-	"setupFiles": [
-	    "<rootDir>/config/setupTests.js"
-	],
-	"moduleNameMapper": {
-	    "\\.(css)$": "<rootDir>/__mocks__/styleMock.js",
-	    "\\.(jpg|png)$": "<rootDir>/__mocks__/fileMock.js"
-	}
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/config/setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(jpg|png)$": "<rootDir>/__mocks__/fileMock.js"
     }
+  }
 }
