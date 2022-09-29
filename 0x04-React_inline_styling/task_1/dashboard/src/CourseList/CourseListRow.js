@@ -1,38 +1,40 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import React from "react";
+import PropTypes from "prop-types";
 
-const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
-  const bgColor1 = { backgroundColor: '#f5f5f5ab' };
-  const bgColor2 = { backgroundColor: '#deb5b545' };
-  let bgColor = undefined;
-  let content = undefined;
+export default function CourseListRow({
+  isHeader,
+  textFirstCell,
+  textSecondCell,
+}) {
 
-  if (isHeader === true) {
-    bgColor = bgColor2;
+  const rowStyle = { backgroundColor: '#f5f5f5ab'}
+  const headerStyle = { backgroundColor: '#deb5b545'}
+  const text = {textAlign: 'center', border:'1px solid lightgray'}
+
+  if (isHeader) {
     if (textSecondCell === null) {
-      content = <th colSpan='2'>{textFirstCell}</th>;
+      return (
+        <tr style={headerStyle}>
+          <th colSpan="2" style={text}>{textFirstCell}</th>
+        </tr>
+      );
     } else {
-      content = (
-        <Fragment>
-          <th className={css(styles.th)}>{textFirstCell}</th>
-          <th className={css(styles.th)}>{textSecondCell}</th>
-        </Fragment>
+      return (
+        <tr style={headerStyle}>
+          <th style={text}>{textFirstCell}</th>
+          <th style={text}>{textSecondCell}</th>
+        </tr>
       );
     }
-  }
-  if (isHeader === false) {
-    bgColor = bgColor1;
-    content = (
-      <Fragment>
-        <td>{textFirstCell}</td>
-        <td>{textSecondCell}</td>
-      </Fragment>
+  } else {
+    return (
+      <tr style={rowStyle}>
+        <td style={text}>{textFirstCell}</td>
+        <td style={text}>{textSecondCell}</td>
+      </tr>
     );
   }
-
-  return <tr style={bgColor}>{content}</tr>;
-};
+}
 
 CourseListRow.defaultProps = {
   isHeader: false,
@@ -42,15 +44,5 @@ CourseListRow.defaultProps = {
 CourseListRow.propTypes = {
   isHeader: PropTypes.bool,
   textFirstCell: PropTypes.string.isRequired,
-  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) 
 };
-
-const styles = StyleSheet.create({
-  th: {
-    textAlign: 'left',
-    borderTop: '1px solid gray',
-    borderBottom: '1px solid gray',
-  },
-});
-
-export default CourseListRow;
