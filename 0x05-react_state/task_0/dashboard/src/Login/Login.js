@@ -1,128 +1,35 @@
-import React, { Component } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import React from "react";
+import { css, StyleSheet } from 'aphrodite';
+import { symbol } from "prop-types";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      enableSubmit: false,
-    };
-    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-  }
-
-  handleLoginSubmit(e) {
-    e.preventDefault();
-    const { email, password } = this.state;
-    this.props.logIn(email, password);
-  }
-
-  handleChangeEmail(e) {
-    const { value } = e.target;
-    const { password } = this.state;
-
-    if (value !== '' && password !== '') this.setState({ enableSubmit: true });
-    else this.setState({ enableSubmit: false });
-
-    this.setState({ email: e.target.value });
-  }
-
-  handleChangePassword(e) {
-    const { value } = e.target;
-    const { email } = this.state;
-
-    if (email !== '' && value !== '') this.setState({ enableSubmit: true });
-    else this.setState({ enableSubmit: false });
-
-    this.setState({ password: e.target.value });
-  }
-
-  render() {
-    return (
-      <main role='main' className={css(styles.login)}>
-        <p>Login to access the full dashboard</p>
-        <form action='' onSubmit={this.handleLoginSubmit}>
-          <label htmlFor='email'>Email:</label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            className={css(styles.inp)}
-            value={this.state.email}
-            onChange={this.handleChangeEmail}
-          />
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            id='password'
-            name='password'
-            className={css(styles.inp)}
-            value={this.state.password}
-            onChange={this.handleChangePassword}
-          />
-          <button
-            type='submit'
-            className={css(styles.btn)}
-            disabled={!this.state.enableSubmit}
-          >
-            OK
-          </button>
-        </form>
-      </main>
-    );
-  }
-}
-/*
-<label htmlFor='email'>Email:</label>
-        <input
-          className={css(styles.inp)}
-          type='email'
-          name='email'
-          id='email'
-        />
-        <label htmlFor='password'>Password:</label>
-        <input
-          className={css(styles.inp)}
-          type='password'
-          name='password'
-          id='password'
-        />
-        <button className={css(styles.btn)} type='button'>
-          OK
-        </button>
-*/
-const screenSize = {
-  small: '@media screen and (max-width: 900px)',
-};
 
 const styles = StyleSheet.create({
-  login: {
-    padding: '16px 24px',
-    [screenSize.small]: {
-      width: '90%',
-      padding: 0,
-    },
+  bodyLogin: {
+    margin: '20px 0 0px 0px',
+    flexGrow: 1
   },
-  inp: {
-    margin: '4px',
-    [screenSize.small]: {
+  smallInput : {
+    '@media (max-width: 900px)': {
       display: 'block',
-      border: 'none',
-      margin: 0,
-    },
-  },
-  btn: {
-    margin: '4px',
-    cursor: 'pointer',
-    [screenSize.small]: {
-      width: '32px',
-      display: 'block',
-      margin: 0,
-    },
-  },
-});
+      marginTop: '10px',
+      marginBottom: '5px',
+    }
+  }
+})
+
+function Login() {
+  return (
+    <div className='body-login'>
+      <div className={css(styles.bodyLogin, styles.smallInput)}>
+        <p>Login to access the full dashboard</p>
+        <label htmlFor="fname" className={css(styles.smallInput)}>Email:</label>
+        <input type="email" id="email" className={css(styles.bodyLoginInput, styles.smallInput)}/>
+        <label htmlFor="lname" className={css(styles.smallInput, styles.button)}>Password:</label>
+        <input type="password" id="password" className={css(styles.bodyLoginInput, styles.smallInput)}/>
+        <button className={css(styles.button, styles.smallInput)}>OK</button>
+      </div>
+    </div>
+  );
+}
 
 export default Login;

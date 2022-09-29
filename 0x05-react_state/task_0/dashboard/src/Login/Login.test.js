@@ -1,48 +1,27 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Login from './Login';
+/**
+ * @jest-environment jsdom
+ */
+
+import React from "react";
+import { shallow } from "enzyme";
+import Login from "./Login";
 import { StyleSheetTestUtils } from 'aphrodite';
 
-describe('<Login />', () => {
-  beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
-  });
-  afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-  });
+StyleSheetTestUtils.suppressStyleInjection();
 
-  const wrapper = shallow(<Login />);
-
-  it('render without crashing', () => {
-    expect(wrapper.exists());
-  });
-
-  it('labels', () => {
-    expect(wrapper.find('form label')).toHaveLength(2);
-  });
-
-  it('inputs', () => {
-    expect(wrapper.find('form input')).toHaveLength(2);
-  });
-
-  it('button', () => {
-    const button = wrapper.find("form button[type='submit']");
-    expect(button).toHaveLength(1);
-    expect(button.prop('disabled')).toEqual(true);
-  });
-
-  it('form working', () => {
-    const email = wrapper.find('#email');
-    const password = wrapper.find('#password');
-    email.simulate('change', {
-      target: { name: 'email', value: 'account@domain.ext' },
+describe("<Login />", () => {
+    it("Login renders without any errors", () => {
+      const wrapper = shallow(<Login />);
+      expect(wrapper.exists()).toEqual(true);
     });
-    let submit = wrapper.find("form button[type='submit']");
-    expect(submit.prop('disabled')).toEqual(true);
-    password.simulate('change', {
-      target: { name: 'password', value: 'qwerty' },
+
+    it("VVerify that the components renders 2 input tags", () => {
+      const wrapper = shallow(<Login />);
+      expect(wrapper.find("div.body-login input")).toHaveLength(2);
     });
-    submit = wrapper.find("form button[type='submit']");
-    expect(submit.prop('disabled')).toEqual(false);
-  });
-});
+
+    it("Verify that the components renders 2 label tags", () => {
+      const wrapper = shallow(<Login />);
+      expect(wrapper.find("div.body-login label")).toHaveLength(2);
+    });
+})
